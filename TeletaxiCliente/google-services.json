@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "585448872153",
+    "project_id": "teletaxivenezuela",
+    "storage_bucket": "teletaxivenezuela.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585448872153:android:d3d8f5ebc8236e1dd3c6c8",
+        "android_client_info": {
+          "package_name": "com.psiqueylogos_ac.teletaxica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585448872153-nscb3aemm1417a00rbj7ru51haiegc9c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.psiqueylogos_ac.teletaxica",
+            "certificate_hash": "6434587acbc65b62284bf41d237a780cb5d9859a"
+          }
+        },
+        {
+          "client_id": "585448872153-dai5offafo1o2fiecllgtjd8blv7uiai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhkln7CKL9g-9eNZ-Aji3Tk1FO-_wP3ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585448872153-dai5offafo1o2fiecllgtjd8blv7uiai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585448872153:android:51328e5bd42adbb7d3c6c8",
+        "android_client_info": {
+          "package_name": "com.psiqueylogos_ac.teletaxive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585448872153-llfvs97rve1o0vcq9f3kg62cikb9f93n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.psiqueylogos_ac.teletaxive",
+            "certificate_hash": "52008dd2332a49e8b6e102f27d6038f68310d3cf"
+          }
+        },
+        {
+          "client_id": "585448872153-dai5offafo1o2fiecllgtjd8blv7uiai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhkln7CKL9g-9eNZ-Aji3Tk1FO-_wP3ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585448872153-dai5offafo1o2fiecllgtjd8blv7uiai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

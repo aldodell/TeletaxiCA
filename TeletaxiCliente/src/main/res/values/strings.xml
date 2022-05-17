@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">TeletaxiCA</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="order">Ordenar</string>
+    <string name="confirm_order">Confirmar servicio</string>
+    <string name="status">Estado del servicio</string>
+    <string name="request_send">Solicitud enviada</string>
+    <string name="request_accepted">Solicitud aceptada por un conductor</string>
+    <string name="aproximated_time">Tiempo aproximado</string>
+    <string name="arrived">Llegó el vehículo</string>
+    <string name="email_reason">
+        Para poder acceder a nuestros servicios es necesario proporcionar
+        una cuenta de correo electrónico. Por favor ingresa una cuenta de correo válida
+        para continuar.
+    </string>
+    <string name="exit">Salir</string>
+    <string name="send">Enviar</string>
+    <string name="close_session">Cerrar sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="request_service">Pedir servicio</string>
+
+
+</resources>
