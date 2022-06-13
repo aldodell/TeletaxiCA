@@ -27,6 +27,7 @@
     <string name="close_session">Cerrar sesión</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
+    <string name="press_to_request_service">Pulsa para pedir servicio</string>
     <string name="request_service">Pedir servicio</string>
     <string name="password_recovery">Recuperar contraseña</string>
     <string name="manage_account">Administrar cuenta</string>

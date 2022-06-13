@@ -19,10 +19,13 @@
         <entry key="TeletaxiConductor/src/main/res/layout/service_row.xml" value="0.22777777777777777" />
         <entry key="teletaxi_cliente/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.106" />
         <entry key="teletaxi_cliente/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="teletaxi_cliente/src/main/res/font/saira_stencil_one.xml" value="0.21574074074074073" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_confirm_service.xml" value="0.17777777777777778" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_get_email.xml" value="0.17777777777777778" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="teletaxi_cliente/src/main/res/layout/activity_request_service.xml" value="0.17777777777777778" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_status_service.xml" value="0.2703125" />
+        <entry key="teletaxi_cliente/src/main/res/layout/fragment_map_costumer.xml" value="0.17777777777777778" />
         <entry key="teletaxi_conductor/src/main/res/layout/activity_current_service.xml" value="0.29791666666666666" />
         <entry key="teletaxi_conductor/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="teletaxi_conductor/src/main/res/layout/service_row.xml" value="0.1203125" />
