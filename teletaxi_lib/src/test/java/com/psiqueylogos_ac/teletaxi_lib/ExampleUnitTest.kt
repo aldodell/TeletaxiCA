@@ -1,4 +1,4 @@
-package com.psiqueylogos_ac.teletaxica
+package com.psiqueylogos_ac.teletaxi_lib
 
 import org.junit.Test
 
