@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TeletaxiConductor</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="entry">Entrar</string>
+    <string name="close">Cerrar</string>
+    <string name="accept">Aceptar</string>
+    <string name="service_accept">Aceptación de servicio</string>
+    <string name="notify_arrived">Notificar arribo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="services_requested">Servicios solicitados</string>
+    <string name="service_message_1">
+        La aceptación del servicio es irreversible. Puede implicar gastos económicos al
+        ser contabilizado el servicio en la base de datos de la compañía.
+        Considere con responsabilidad aceptar el servicio al cliente.
+    </string>
+
+
+</resources>
