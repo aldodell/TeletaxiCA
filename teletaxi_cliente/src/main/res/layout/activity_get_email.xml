@@ -10,11 +10,12 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/teletaxicaracas" />
+        app:srcCompat="@drawable/tltc" />
 
     <TextView
         android:id="@+id/textView2"
@@ -83,7 +84,7 @@
         android:id="@+id/btPasswordRecovery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/password_recovery"
         app:layout_constraintBottom_toTopOf="@+id/btCloseSession"
         app:layout_constraintEnd_toEndOf="parent"
