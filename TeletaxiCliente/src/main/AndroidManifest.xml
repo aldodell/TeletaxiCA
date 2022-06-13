@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.psiqueylogos_ac.teletaxica">
+    package="com.psiqueylogos_ac.teletaxi_cliente">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,13 +19,13 @@
         android:theme="@style/Theme.TeletaxiCA"
         tools:targetApi="31">
         <activity
-            android:name=".GetEmailActivity"
+            android:name="com.psiqueylogos_ac.teletaxi_cliente.GetEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".StatusServiceActivity"
+            android:name="com.psiqueylogos_ac.teletaxi_cliente.StatusServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".ConfirmServiceActivity"
+            android:name="com.psiqueylogos_ac.teletaxi_cliente.ConfirmServiceActivity"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -43,10 +43,10 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".RequestServiceActivity"
+            android:name="com.psiqueylogos_ac.teletaxi_cliente.RequestServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.psiqueylogos_ac.teletaxi_cliente.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

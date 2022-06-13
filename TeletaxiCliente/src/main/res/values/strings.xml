@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">TeletaxiCA</string>
+    <string name="app_name">TLTC (Teletaxi Caracas C.A.)</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="order">Ordenar</string>
     <string name="confirm_order">Confirmar servicio</string>
+    <string name="confirmation">Confirmación</string>
     <string name="status">Estado del servicio</string>
     <string name="request_send">Solicitud enviada</string>
     <string name="request_accepted">Solicitud aceptada por un conductor</string>
@@ -16,10 +17,37 @@
     </string>
     <string name="exit">Salir</string>
     <string name="send">Enviar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="where_are_you">
+        ¿Dónde estás?
+    </string>
+    <string name="where_are_you_going">
+        ¿A dónde vas?
+    </string>
     <string name="close_session">Cerrar sesión</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="request_service">Pedir servicio</string>
+    <string name="password_recovery">Recuperar contraseña</string>
+    <string name="manage_account">Administrar cuenta</string>
+
+    <string name="request_service_speech">
+        Al solicitar un servicio se enviará a nuestra red de conductores una petición para
+        atenderlo. Esta solicitud genera gastos operativos. Por favor asegúrese de que las
+        direcciones de origen y destino del servicio sean las correctas. El pago será coordinado
+        directamente con el conductor. Pronto ofreceremos otras alternativas.
+
+    </string>
+
+    <string name="request_service_speech_2">
+        Al confirmar la solicitud del servicio acepta nuestros términos de contratación.
+        Cualquier servicio solicitado y no pagado generará la suspensión inmediata y definitiva
+        de la cuenta de usuario que lo solicitó.
+    </string>
+
+    <string name="confirm_request_service">
+        Sí, deseo solicitar el servicio.
+    </string>
 
 
 </resources>
