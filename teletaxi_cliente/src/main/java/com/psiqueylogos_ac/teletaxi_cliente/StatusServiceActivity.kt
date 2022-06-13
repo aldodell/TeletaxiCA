@@ -1,10 +1,13 @@
 package com.psiqueylogos_ac.teletaxi_cliente
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.psiqueylogos_ac.teletaxi_lib.Order
 
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 import com.psiqueylogos_ac.teletaxi_lib.StatusOrder
@@ -14,6 +17,7 @@ class StatusServiceActivity : AppCompatActivity() {
     private lateinit var rbRequestSend: RadioButton
     private lateinit var rbRequestAccepted: RadioButton
     private lateinit var rbRequestArrived: RadioButton
+    private lateinit var btGoBegin: Button
     private lateinit var settings: Settings
     private var idOrder = ""
 
@@ -21,16 +25,19 @@ class StatusServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_status_service)
-
+        //Get views references
         rbRequestSend = findViewById(R.id.rbRequestSend)
         rbRequestAccepted = findViewById(R.id.rbRequestAccepted)
         rbRequestArrived = findViewById(R.id.rbArrived)
+        btGoBegin = findViewById(R.id.btGoBegin)
 
+        //get settings
         settings = Settings(this)
 
+        //Get Firestore reference
         val db = Firebase.firestore
 
-        //Send a request
+        //Add order to database
         db.collection("orders")
             .add(order.toMap())
             .addOnCompleteListener { it1 ->
@@ -38,9 +45,10 @@ class StatusServiceActivity : AppCompatActivity() {
                     rbRequestSend.isChecked = true
                     idOrder = it1.result.id
                     settings.idOrder = it1.result.id
+                    settings.currentOrder = order
 
-
-                    //Capture changes
+                    //Capture changes on order database object
+                    //for change user interface
                     db.collection("orders")
                         .addSnapshotListener { value, _ ->
                             value?.let {
@@ -59,7 +67,13 @@ class StatusServiceActivity : AppCompatActivity() {
                         }
                 }
             }
+
+        btGoBegin.setOnClickListener {
+            order = Order()
+            settings.currentOrder = null
+            val myIntent = Intent(this, MainActivity::class.java)
+            startActivity(myIntent)
+        }
+
     }
-
-
 }

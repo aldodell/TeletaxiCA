@@ -27,9 +27,19 @@ class Settings(var context: Context) {
     var currentOrder: Order?
         get() {
             var order = Order()
-            order.fromJson(sharedPreferences.getString("currentOrder", "")!!)
-            return order
+            val json = sharedPreferences.getString("currentOrder", "")
+            return if (json != null) {
+                order.fromJson(json)
+                order
+            } else {
+                null
+            }
         }
-        set(value) = sharedPreferences.edit().putString("currentOrder", value!!.toJson()!!).apply()
+        set(value) {
+            if (value != null) {
+                sharedPreferences.edit().putString("currentOrder", value.toJson()!!).apply()
+            } else sharedPreferences.edit().remove("currentOrder").apply()
+
+        }
 
 }

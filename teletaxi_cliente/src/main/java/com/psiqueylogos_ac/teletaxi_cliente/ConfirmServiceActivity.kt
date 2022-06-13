@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.google.firebase.auth.FirebaseAuth
-
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 
 
@@ -19,12 +18,16 @@ class ConfirmServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_service)
-
+        //Get auth
         val auth = FirebaseAuth.getInstance()
+        //Get settings
         val settings = Settings(this)
 
+        //Views references
         tvOrder = findViewById(R.id.tvOrderDescription)
         btConfirmOrder = findViewById(R.id.btConfirmOrder)
+
+        //Set up order text
         val orderText =
             "Servicio <b>desde:</b> ${order.origin}" +
                     "<br/><b>hasta:</b>${order.destination}<br/>" +
@@ -34,6 +37,7 @@ class ConfirmServiceActivity : AppCompatActivity() {
         val spanned = HtmlCompat.fromHtml(orderText, HtmlCompat.FROM_HTML_MODE_COMPACT)
         tvOrder.text = spanned
 
+        //Setup confirm button
         btConfirmOrder.setOnClickListener {
 
             AlertDialog.Builder(this)
@@ -47,7 +51,6 @@ class ConfirmServiceActivity : AppCompatActivity() {
                     order.customer = auth.currentUser!!.email!!
                     settings.currentOrder = order
 
-
                     val mIntent = Intent(this, StatusServiceActivity::class.java)
                     startActivity(mIntent)
                 }
@@ -57,6 +60,5 @@ class ConfirmServiceActivity : AppCompatActivity() {
                 .show()
 
         }
-
     }
 }

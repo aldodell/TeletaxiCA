@@ -47,7 +47,6 @@ class MapCostumerFragment : Fragment() {
             //Fill order
             order.originLatLng = it
 
-
         }
 
 

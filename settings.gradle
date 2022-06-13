@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "TeletaxiCA"
-include ':TeletaxiCliente'
-include ':teletaxiconductor'
+include ':teletaxi_cliente'
+include ':teletaxi_lib'
+include ':teletaxi_conductor'

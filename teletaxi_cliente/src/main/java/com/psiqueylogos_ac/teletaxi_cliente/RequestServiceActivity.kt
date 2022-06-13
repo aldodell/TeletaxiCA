@@ -2,13 +2,11 @@ package com.psiqueylogos_ac.teletaxi_cliente
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -17,11 +15,10 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-
 import com.psiqueylogos_ac.teletaxi_lib.easyAddress
 
 class RequestServiceActivity : AppCompatActivity() {
-    val tag = "TELETAXI"
+    val tag = "TLTC"
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var currentLatLng: LatLng = LatLng(10.9, -66.0)
     private lateinit var btOrder: Button
@@ -40,7 +37,6 @@ class RequestServiceActivity : AppCompatActivity() {
                 .setPositiveButton(
                     R.string.confirm_request_service
                 ) { _, _ ->
-                   // var order = com.psiqueylogos_ac.teletaxi_lib.Order()
                     val mIntent = Intent(this, ConfirmServiceActivity::class.java)
                     startActivity(mIntent)
                 }
@@ -52,29 +48,13 @@ class RequestServiceActivity : AppCompatActivity() {
         }
 
         //Check permission
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermission(PERMISSION_ACCESS_FINE_LOCATION, this)
-        }
-
-        //get last position
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            currentLatLng = LatLng(it.latitude, it.longitude)
-            mapViewModel.position.value = currentLatLng
-        }
-
+        requestPermission(PERMISSION_ACCESS_FINE_LOCATION, this)
 
         //Initialize Places
         if (!Places.isInitialized()) {
             Places.initialize(this, BuildConfig.MAPS_API_KEY)
             Places.createClient(this)
-
         }
-
 
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragmentOrigin =
@@ -94,7 +74,6 @@ class RequestServiceActivity : AppCompatActivity() {
         autocompleteFragmentOrigin.setCountry("ve")
         autocompleteFragmentOrigin.setHint(getString(R.string.where_are_you))
 
-
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragmentOrigin.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
@@ -103,8 +82,8 @@ class RequestServiceActivity : AppCompatActivity() {
             }
 
             override fun onError(status: Status) {
-                // TODO: Handle the error.
                 Log.i(tag, "An error occurred: $status")
+
             }
         })
 
@@ -131,7 +110,6 @@ class RequestServiceActivity : AppCompatActivity() {
         autocompleteFragmentDestination.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-
                 mapViewModel.destinationSelected.value = place.latLng
                 order.destination = easyAddress(place)
                 Log.i(tag, "Place: ${place.name}, ${place.id}")
@@ -142,6 +120,15 @@ class RequestServiceActivity : AppCompatActivity() {
                 Log.i(tag, "An error occurred: $status")
             }
         })
+
+        //get last position
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            currentLatLng = LatLng(it.latitude, it.longitude)
+            mapViewModel.position.value = currentLatLng
+        }
+
+
     }
 
 }

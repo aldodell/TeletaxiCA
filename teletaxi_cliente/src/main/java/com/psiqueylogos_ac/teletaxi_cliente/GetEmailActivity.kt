@@ -14,6 +14,7 @@ import com.psiqueylogos_ac.teletaxi_lib.Settings
 
 class GetEmailActivity : AppCompatActivity() {
 
+    //Get views references
     private lateinit var etMail: EditText
     private lateinit var btSendEmail: Button
     private lateinit var etPassword: EditText
@@ -26,12 +27,14 @@ class GetEmailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_email)
 
+        //views references
         etMail = findViewById(R.id.etEmail)
         btSendEmail = findViewById(R.id.btSendEmail)
         etPassword = findViewById(R.id.etPassword)
         btPasswordRecovery = findViewById(R.id.btPasswordRecovery)
         btCloseSession = findViewById(R.id.btCloseSession)
 
+        //settings references
         val settings = Settings(this)
 
 
@@ -44,7 +47,7 @@ class GetEmailActivity : AppCompatActivity() {
         }
 
 
-        //Send email / password. If user exists sigin it, or create user.
+        //Send email / password. If user exists sign in it, or create user.
         btSendEmail.setOnClickListener {
             val email = etMail.text.toString().trim()
             val password = etPassword.text.toString().trim()
@@ -69,7 +72,6 @@ class GetEmailActivity : AppCompatActivity() {
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
-
                                     }
                                 }
                         } else {
@@ -121,8 +123,6 @@ class GetEmailActivity : AppCompatActivity() {
             Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
             settings.email = ""
             settings.password = ""
-
-
         }
 
     }
