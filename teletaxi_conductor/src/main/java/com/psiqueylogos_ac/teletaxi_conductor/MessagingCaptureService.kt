@@ -21,7 +21,7 @@ class MessagingCaptureService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        sendToken(this, token)
+        //sendToken(this, token)
         settings.messageToken = token
     }
 

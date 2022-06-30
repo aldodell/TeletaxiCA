@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 
 class GetEmailActivity : AppCompatActivity() {
@@ -18,6 +17,8 @@ class GetEmailActivity : AppCompatActivity() {
     private lateinit var etMail: EditText
     private lateinit var btSendEmail: Button
     private lateinit var etPassword: EditText
+    lateinit var etPhone: EditText
+
     private lateinit var btPasswordRecovery: Button
     private lateinit var btCloseSession: Button
     private val auth = FirebaseAuth.getInstance()
@@ -33,6 +34,7 @@ class GetEmailActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.etPassword)
         btPasswordRecovery = findViewById(R.id.btPasswordRecovery)
         btCloseSession = findViewById(R.id.btCloseSession)
+        etPhone = findViewById(R.id.etPhone)
 
         //settings references
         val settings = Settings(this)
@@ -43,6 +45,7 @@ class GetEmailActivity : AppCompatActivity() {
             if (settings.containsEmail) {
                 etMail.setText(settings.email)
                 etPassword.setText(settings.password)
+                etPhone.setText(settings.phone)
             }
         }
 
@@ -51,8 +54,10 @@ class GetEmailActivity : AppCompatActivity() {
         btSendEmail.setOnClickListener {
             val email = etMail.text.toString().trim()
             val password = etPassword.text.toString().trim()
+            val phone = etPhone.text.toString().trim()
             settings.email = email
             settings.password = password
+            settings.phone = phone
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { it1 ->

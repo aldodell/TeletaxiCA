@@ -13,7 +13,11 @@
     <string name="email_reason">
         Para poder acceder a nuestros servicios es necesario proporcionar
         una cuenta de correo electrónico. Por favor ingresa una cuenta de correo válida
-        para continuar.
+        para continuar. Si es la primera vez que accedes a esta aplicación
+        se guardará tu dirección en nuestra base de datos. Proporciona una contaseña
+        que te permita acceder luego a la aplicación.
+        Si olvidas la contraseña haz click en "RECUPERAR CONTRASEÑA" y se te enviará
+        un correo electrónico a la dirección que proporcionaste para regenerar la contraseña.
     </string>
     <string name="exit">Salir</string>
     <string name="send">Enviar</string>
@@ -27,7 +31,7 @@
     <string name="close_session">Cerrar sesión</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
-    <string name="press_to_request_service">Pulsa para pedir servicio</string>
+    <string name="press_to_request_service">Pulsa aquí para pedir servicio</string>
     <string name="request_service">Pedir servicio</string>
     <string name="password_recovery">Recuperar contraseña</string>
     <string name="manage_account">Administrar cuenta</string>
@@ -51,6 +55,8 @@
     </string>
 
     <string name="go_begin">Ir al principio</string>
+    <string name="phone">Teléfono</string>
+    <string name="todo">TODO</string>
 
 
 </resources>

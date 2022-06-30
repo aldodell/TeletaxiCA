@@ -21,6 +21,9 @@ class StatusServiceActivity : AppCompatActivity() {
     private lateinit var settings: Settings
     private var idOrder = ""
 
+    //Get Firestore reference
+    private val db = Firebase.firestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +37,37 @@ class StatusServiceActivity : AppCompatActivity() {
         //get settings
         settings = Settings(this)
 
-        //Get Firestore reference
-        val db = Firebase.firestore
 
-        //Add order to database
+        //Check if id is not empty
+        if (!order.id.isEmpty()) {
+            //Check if this order exits on database
+            db.collection("orders")
+                .document(order.id)
+                .get()
+                .addOnCompleteListener {
+                    if (!it.result.exists()) {
+                        addOrder()
+                    }
+                }
+
+        } else {
+            addOrder()
+        }
+
+
+        btGoBegin.setOnClickListener {
+            order = Order()
+            settings.currentOrder = null
+            val myIntent = Intent(this, MainActivity::class.java)
+            startActivity(myIntent)
+        }
+
+    }
+
+    private fun addOrder() {
+        //If order does not exits on database add it:
         db.collection("orders")
-            .add(order.toMap())
+            .add(order.map)
             .addOnCompleteListener { it1 ->
                 if (it1.isSuccessful) {
                     rbRequestSend.isChecked = true
@@ -54,7 +82,10 @@ class StatusServiceActivity : AppCompatActivity() {
                             value?.let {
                                 it.documentChanges.forEach { doc ->
                                     if (doc.document.id == idOrder) {
-                                        order.from(doc.document.data, doc.document.id)
+                                        order.from(
+                                            doc.document.data,
+                                            doc.document.id
+                                        )
                                         if (order.status == StatusOrder.accepted.name) {
                                             rbRequestAccepted.isChecked = true
                                         }
@@ -67,13 +98,5 @@ class StatusServiceActivity : AppCompatActivity() {
                         }
                 }
             }
-
-        btGoBegin.setOnClickListener {
-            order = Order()
-            settings.currentOrder = null
-            val myIntent = Intent(this, MainActivity::class.java)
-            startActivity(myIntent)
-        }
-
     }
 }

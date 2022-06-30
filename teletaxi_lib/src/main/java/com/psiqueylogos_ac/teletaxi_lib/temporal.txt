@@ -1,0 +1,61 @@
+
+open class MappeableData {
+
+    /**
+     * Use to exclude a property for serialization
+     */
+    annotation class Excluding
+
+    annotation class Mappeable
+
+    var map: Map<String, Any>
+        get() {
+            val result = mutableMapOf<String, Any>()
+            this::class.declaredMemberProperties.forEach { p0 ->
+                if (!p0.hasAnnotation<Excluding>()) {
+                    val p1 = p0 as KProperty1<MappeableData, Any>
+                    val obj = p1.get(this)
+                    if (obj is MappeableData) {
+                        result[p1.name] = (obj as MappeableData).map
+                    } else {
+                        result[p1.name] = obj
+                    }
+                }
+            }
+            return result
+        }
+        set(value) {
+            this::class.declaredMemberProperties.forEach { p0 ->
+                if (!p0.hasAnnotation<Excluding>()) {
+                    if (p0 is KMutableProperty1) {
+                        if (p0 is KMutableProperty1) {
+                            val p1 = p0 as KMutableProperty1<MappeableData, Any>
+                            if (value.contains(p1.name)) {
+                                if (value[p1.name] != null) {
+                                    if (p1.hasAnnotation<Mappeable>()) {
+                                        val o = MappeableData()
+                                        o.map = (value[p1.name]!!) as Map<String, Any>
+                                        p1.set(this, o)
+                                    } else {
+                                        p1.set(this, value[p1.name]!!)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    var json: JSONObject
+        get() = JSONObject(this.map)
+        set(value) {
+            val map = mutableMapOf<String, Any>()
+            value.keys().forEach { key ->
+                map.put(key, value.get(key))
+            }
+            this.map = map
+        }
+
+
+}

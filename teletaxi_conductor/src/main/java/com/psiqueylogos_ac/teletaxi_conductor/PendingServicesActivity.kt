@@ -60,7 +60,7 @@ class PendingServicesAdapter(
 
                     db.collection("orders")
                         .document(order.id)
-                        .update(order.toMap())
+                        .update(order.map)
                         .addOnCompleteListener {
                             val mIntent =
                                 Intent(settings.context, CurrentServiceActivity::class.java)

@@ -13,6 +13,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.psiqueylogos_ac.teletaxi_lib.easyAddress
@@ -23,10 +24,18 @@ class RequestServiceActivity : AppCompatActivity() {
     private var currentLatLng: LatLng = LatLng(10.9, -66.0)
     private lateinit var btOrder: Button
 
+    private var placeFields = listOf(
+        Place.Field.NAME,
+        Place.Field.LAT_LNG,
+        Place.Field.ADDRESS,
+        Place.Field.ADDRESS_COMPONENTS
+    )
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_service)
+
 
         //Configure button order
         btOrder = findViewById(R.id.btOrder)
@@ -53,8 +62,10 @@ class RequestServiceActivity : AppCompatActivity() {
         //Initialize Places
         if (!Places.isInitialized()) {
             Places.initialize(this, BuildConfig.MAPS_API_KEY)
-            Places.createClient(this)
+
         }
+
+        val clientPlaces = Places.createClient(this)
 
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragmentOrigin =
@@ -62,15 +73,7 @@ class RequestServiceActivity : AppCompatActivity() {
                     as AutocompleteSupportFragment
 
         // Specify the types of place data to return.
-        autocompleteFragmentOrigin.setPlaceFields(
-            listOf(
-                Place.Field.ID,
-                Place.Field.NAME,
-                Place.Field.LAT_LNG,
-                Place.Field.ADDRESS,
-                Place.Field.ADDRESS_COMPONENTS
-            )
-        )
+        autocompleteFragmentOrigin.setPlaceFields(placeFields)
         autocompleteFragmentOrigin.setCountry("ve")
         autocompleteFragmentOrigin.setHint(getString(R.string.where_are_you))
 
@@ -94,15 +97,7 @@ class RequestServiceActivity : AppCompatActivity() {
                     as AutocompleteSupportFragment
 
         // Specify the types of place data to return.
-        autocompleteFragmentDestination.setPlaceFields(
-            listOf(
-                Place.Field.ID,
-                Place.Field.NAME,
-                Place.Field.LAT_LNG,
-                Place.Field.ADDRESS,
-                Place.Field.ADDRESS_COMPONENTS
-            )
-        )
+        autocompleteFragmentDestination.setPlaceFields(placeFields)
         autocompleteFragmentDestination.setCountry("ve")
         autocompleteFragmentDestination.setHint(getString(R.string.where_are_you_going))
 
@@ -126,9 +121,25 @@ class RequestServiceActivity : AppCompatActivity() {
         fusedLocationClient.lastLocation.addOnSuccessListener {
             currentLatLng = LatLng(it.latitude, it.longitude)
             mapViewModel.position.value = currentLatLng
+
+            val request =
+                FindCurrentPlaceRequest
+                    .newInstance(placeFields.minusElement(Place.Field.ADDRESS_COMPONENTS))
+
+            clientPlaces.findCurrentPlace(request)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        it.result.placeLikelihoods.firstOrNull()?.let { p ->
+                            autocompleteFragmentOrigin.setText(p.place.name)
+                            order.origin = easyAddress(p.place)
+                            order.originLatLng = currentLatLng
+                            mapViewModel.originSelected.value = currentLatLng
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    Log.wtf("findCurrentPlace", "onCreate: ${it.message}")
+                }
         }
-
-
     }
-
 }

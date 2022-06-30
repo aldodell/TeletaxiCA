@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.psiqueylogos_ac.teletaxi_lib.easyAddress
 
 
 class MapCostumerFragment : Fragment() {
@@ -19,6 +20,7 @@ class MapCostumerFragment : Fragment() {
     private var destinationMarker: Marker? = null
     private var line: Polyline? = null
     lateinit var geocoder: Geocoder
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -43,7 +45,6 @@ class MapCostumerFragment : Fragment() {
             //Add new marker
             originMarker =
                 googleMap.addMarker(MarkerOptions().position(it).title("Origen").draggable(true))
-
             //Fill order
             order.originLatLng = it
 
@@ -79,9 +80,12 @@ class MapCostumerFragment : Fragment() {
         }
 
 
+
+
         googleMap.setOnMarkerDragListener(
             object : GoogleMap.OnMarkerDragListener {
                 override fun onMarkerDrag(p0: Marker) {
+
                     line?.remove()
 
                     if (originMarker != null && destinationMarker != null) {
@@ -95,8 +99,15 @@ class MapCostumerFragment : Fragment() {
                         order.destinationLatLng = destinationMarker!!.position
                     }
 
+
+                }
+
+
+                override fun onMarkerDragEnd(p0: Marker) {
                     when (p0) {
                         originMarker -> {
+                            order.origin = easyAddress(geocoder, originMarker!!.position)
+                            /*
                             order.origin = geocoder
                                 .getFromLocation(
                                     originMarker!!.position.latitude,
@@ -105,9 +116,13 @@ class MapCostumerFragment : Fragment() {
                                 )
                                 .first()
                                 .getAddressLine(0)
+
+                             */
                         }
 
                         destinationMarker -> {
+                            order.destination = easyAddress(geocoder, destinationMarker!!.position)
+                            /*
                             order.destination = geocoder
                                 .getFromLocation(
                                     destinationMarker!!.position.latitude,
@@ -116,12 +131,9 @@ class MapCostumerFragment : Fragment() {
                                 )
                                 .first()
                                 .getAddressLine(0)
+                                */
                         }
                     }
-                }
-
-                override fun onMarkerDragEnd(p0: Marker) {
-                    //TODO("Not yet implemented")
                 }
 
                 override fun onMarkerDragStart(p0: Marker) {
@@ -129,7 +141,6 @@ class MapCostumerFragment : Fragment() {
                 }
             }
         )
-
     }
 
     override fun onCreateView(
@@ -142,7 +153,8 @@ class MapCostumerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
         geocoder = Geocoder(this.context, java.util.Locale.getDefault())
 

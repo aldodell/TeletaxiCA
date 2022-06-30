@@ -20,6 +20,7 @@ class ConfirmServiceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_confirm_service)
         //Get auth
         val auth = FirebaseAuth.getInstance()
+
         //Get settings
         val settings = Settings(this)
 
@@ -48,7 +49,8 @@ class ConfirmServiceActivity : AppCompatActivity() {
                 ) { _, _ ->
 
                     //setup order
-                    order.customer = auth.currentUser!!.email!!
+                    order.customer.email = auth.currentUser!!.email!!
+                    order.customer.phone = settings.phone
                     settings.currentOrder = order
 
                     val mIntent = Intent(this, StatusServiceActivity::class.java)

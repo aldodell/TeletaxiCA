@@ -12,6 +12,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.google.firebase.messaging.FirebaseMessaging
+import com.psiqueylogos_ac.teletaxi_lib.DataBox
+import com.psiqueylogos_ac.teletaxi_lib.Order
 
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 
@@ -61,7 +63,7 @@ fun sendToken(context: Context, token: String) {
                 if (it.isSuccessful) {
                     if (it.result.isEmpty) {
                         db.collection("drivers_device")
-                            .add(driver.toMap())
+                            .add(driver.map)
                     }
                 }
             }
@@ -81,14 +83,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        var o = Order()
+        var db = DataBox(o)
+        val m = db.map
+
+
         //Init firebase
         Firebase.initialize(this)
 
         //get authorization instance object
         val auth = FirebaseAuth.getInstance()
-
-        //get settings instance object
-
 
         //Get views references
         etEmail = findViewById(R.id.etEmail)
@@ -143,7 +148,6 @@ class MainActivity : AppCompatActivity() {
             password = etEmail.text.toString().trim()
         }
 
-
         //do not Exists this user ???
         if (auth.currentUser == null) {
             if (email.isNotEmpty() && password.isNotEmpty())
@@ -167,7 +171,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 showCurrentService(this)
             }
-
         }
     }
 

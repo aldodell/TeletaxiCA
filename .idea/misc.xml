@@ -21,7 +21,7 @@
         <entry key="teletaxi_cliente/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="teletaxi_cliente/src/main/res/font/saira_stencil_one.xml" value="0.21574074074074073" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_confirm_service.xml" value="0.17777777777777778" />
-        <entry key="teletaxi_cliente/src/main/res/layout/activity_get_email.xml" value="0.17777777777777778" />
+        <entry key="teletaxi_cliente/src/main/res/layout/activity_get_email.xml" value="0.335" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_request_service.xml" value="0.17777777777777778" />
         <entry key="teletaxi_cliente/src/main/res/layout/activity_status_service.xml" value="0.2703125" />

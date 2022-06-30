@@ -1,5 +1,6 @@
 package com.psiqueylogos_ac.teletaxi_cliente
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,8 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.messaging.FirebaseMessaging
 import com.psiqueylogos_ac.teletaxi_lib.Order
-
 import com.psiqueylogos_ac.teletaxi_lib.Settings
+import kotlin.reflect.KClass
 
 
 /*
@@ -82,12 +83,18 @@ fun createUser(context: Context) {
     context.startActivity(mIntent)
 }
 
+fun <T : Activity> goTo(context: Context, theClass: KClass<T>) {
+    val mIntent = Intent(context, theClass.java)
+    context.startActivity(mIntent)
+}
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var ibRequestService: ImageButton
     private lateinit var user: FirebaseUser
     private lateinit var tvAppVersion: TextView
     private lateinit var btManageAccount: Button
+    private lateinit var settings: Settings
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         tvAppVersion = findViewById(R.id.tvAppVersion)
         btManageAccount = findViewById(R.id.btManageAccount)
 
-//Views Configurations
+        //Views Configurations
         ibRequestService.isEnabled = false
 
         //Get app version
@@ -110,29 +117,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
 
         //Initialize settings
-        val settings = Settings(this)
-
-        //Get credentials to login
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            //If we have and email saved restore it.
-            if (settings.containsEmail) {
-                val email = settings.email
-                val password = settings.password
-                //Sign in with email and password saved.
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            user = it.result.user!!
-                        }
-                    }
-            } else {
-                //If we haven't email call GetEmailActivity
-                createUser(this)
-            }
-        } else {
-            ibRequestService.isEnabled = true
-        }
-
+        settings = Settings(this)
 
         //Get messaging token
         if (settings.messageToken.isNullOrEmpty()) {
@@ -153,6 +138,36 @@ class MainActivity : AppCompatActivity() {
             createUser(this)
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //Get credentials to login
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            //If we have and email saved restore it.
+            if (settings.containsEmail) {
+                val email = settings.email
+                val password = settings.password
+                //Sign in with email and password saved.
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            user = it.result.user!!
+                        }
+                    }
+            } else {
+                //If we haven't email call GetEmailActivity
+                createUser(this)
+            }
+        } else {
+            ibRequestService.isEnabled = true
+        }
+        requestPermission(PERMISSION_ACCESS_FINE_LOCATION, this)
+        //settings.currentOrder = null
+
+        if (settings.currentOrder != null) {
+            goTo(this, StatusServiceActivity::class)
+        }
     }
 
 }

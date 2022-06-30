@@ -1,6 +1,7 @@
 package com.psiqueylogos_ac.teletaxi_lib
 
 import android.content.Context
+import org.json.JSONObject
 
 class Settings(var context: Context) {
     private val sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -11,6 +12,11 @@ class Settings(var context: Context) {
     var email: String
         get() = sharedPreferences.getString("email", "")!!
         set(value) = sharedPreferences.edit().putString("email", value).apply()
+
+
+    var phone: String
+        get() = sharedPreferences.getString("phone", "")!!
+        set(value) = sharedPreferences.edit().putString("phone", value).apply()
 
     var password: String
         get() = sharedPreferences.getString("password", "")!!
@@ -28,8 +34,8 @@ class Settings(var context: Context) {
         get() {
             var order = Order()
             val json = sharedPreferences.getString("currentOrder", "")
-            return if (json != null) {
-                order.fromJson(json)
+            return if (!json.isNullOrBlank()) {
+                order.json = JSONObject(json)
                 order
             } else {
                 null
@@ -37,9 +43,8 @@ class Settings(var context: Context) {
         }
         set(value) {
             if (value != null) {
-                sharedPreferences.edit().putString("currentOrder", value.toJson()!!).apply()
-            } else sharedPreferences.edit().remove("currentOrder").apply()
-
+                sharedPreferences.edit().putString("currentOrder", value.json.toString()).apply()
+            } else sharedPreferences.edit().clear().apply()
         }
 
 }

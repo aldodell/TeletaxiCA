@@ -1,0 +1,167 @@
+ /**
+     * Annotation for exclude a field from mapping
+     */
+    annotation class Excluding
+
+    /**
+     * A property wich is treated as MappeableData object itself.
+     */
+    annotation class Mappeable
+
+    //val sdf = SimpleDateFormat("dd-MM-yyyy")
+    private var dateFormat = "dd-MM-yyyy"
+
+    /**
+     * Transforms the MappeableData child class into a Map<String,Any> object.
+     */
+    fun toMap(): Map<String, Any> {
+        var map = mutableMapOf<String, Any>()
+        this::class.declaredMemberProperties.forEach {
+            val p = it as KProperty1<MappeableData, Any>
+            if (!p.annotations.contains(Excluding())) {
+                if (p.annotations.contains(Mappeable())) {
+                    map.put(it.name, (p.get(this) as MappeableData).toJson()!!)
+                } else {
+                    map.put(it.name, p.get(this))
+                }
+            }
+        }
+        return map
+    }
+
+
+    open fun from(map: Map<String, Any>, id: String): MappeableData {
+
+        map.keys.forEach { key ->
+            this::class.declaredMemberProperties.forEach { it ->
+                if (it is KMutableProperty1) {
+                    val prop = it as KMutableProperty1<MappeableData, Any>
+                    if (!prop.annotations.contains(Excluding())) {
+                        if (prop.name == key) {
+                            prop.set(this, map[key]!!)
+                        }
+                    }
+                }
+            }
+        }
+        return this
+    }
+
+
+    /*
+    fun toCSV(): String {
+        val sdf = SimpleDateFormat(dateFormat)
+        val map = toMap()
+        var r = StringBuilder()
+        map.keys.forEach { key ->
+
+            var t = map[key]
+            var z = ""
+
+            if (t is Date) {
+                z = sdf.format(t)
+            } else {
+                z = t as String
+            }
+            z = z.replace("\"", "\\\"")
+            r.append("\"")
+            r.append(z)
+            r.append("\"")
+            r.append(",")
+        }
+        r.removeSuffix(",")
+        return r.toString()
+    }
+
+     */
+
+    /**
+     * Take the object and convert it into JSON string representation
+     */
+    fun toJson(): String {
+        /*
+        val map = toMap()
+        val json = JSONObject.wrap(map)?.toString()
+        return json
+        *
+         */
+
+        var result = JSONObject()
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+
+        this::class.declaredMemberProperties.forEach { property ->
+            if (property is KMutableProperty1) {
+                if (!property.hasAnnotation<Excluding>()) {
+                    val property1 = property as KMutableProperty1<MappeableData, Any>
+                    val data = property1.get(this)
+                    if (data is MappeableData) {
+                        result.put(property1.name, (data as MappeableData).toJson())
+                    } else if (data is Date) {
+                        result.put(property1.name, sdf.format(data))
+                    } else {
+                        result.put(property1.name, data)
+                    }
+                }
+            }
+        }
+        return result.toString()
+    }
+
+}
+fun fromJson(json: String): MappeableData {
+
+}
+
+/*
+fun fromJson(json: String): MappeableData {
+    val obj = JSONObject(json)
+    val properties = this::class.declaredMemberProperties
+
+
+
+    obj.keys().forEach { key ->
+        properties.find { it.name == key }.let {
+            if (it != null) {
+                if (it is KMutableProperty1) {
+                    val prop = it as KMutableProperty1<MappeableData, Any>
+                    if (!prop.annotations.contains(Excluding())) {
+                        if (prop.annotations.contains(Mappeable())) {
+                            val s = obj[key] as String
+                            val mp = MappeableData().fromJson(s)
+                            prop.set(this, mp)
+                        } else {
+                            prop.set(this, obj[key])
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    return this
+}
+
+}
+
+ */
+
+/*
+        this::class.declaredMemberProperties.forEach {
+            if (it is KMutableProperty1) {
+                var prop = it as KMutableProperty1<MappeableData, Any>
+                var key = it.name
+
+                if (!prop.annotations.contains(Excluding())) {
+
+                    if (prop.annotations.contains(Mappeable())) {
+                        val subobj = obj[key] as String
+                        val objx = MappeableData().fromJson(subobj)
+                        prop.set(this, objx)
+                    } else {
+                        prop.set(this, obj[key])
+                    }
+                }
+            }
+        }
+
+ */
