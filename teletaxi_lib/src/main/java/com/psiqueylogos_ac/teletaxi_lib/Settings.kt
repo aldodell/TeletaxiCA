@@ -35,7 +35,8 @@ class Settings(var context: Context) {
             var order = Order()
             val json = sharedPreferences.getString("currentOrder", "")
             return if (!json.isNullOrBlank()) {
-                order.json = JSONObject(json)
+                DataBox(order).json = JSONObject(json)
+                //order.json = JSONObject(json)
                 order
             } else {
                 null
@@ -43,7 +44,9 @@ class Settings(var context: Context) {
         }
         set(value) {
             if (value != null) {
-                sharedPreferences.edit().putString("currentOrder", value.json.toString()).apply()
+                //sharedPreferences.edit().putString("currentOrder", DataBox(value).json.toString())
+                sharedPreferences.edit().putString("currentOrder", DataBox(value).json.toString())
+                    .apply()
             } else sharedPreferences.edit().clear().apply()
         }
 

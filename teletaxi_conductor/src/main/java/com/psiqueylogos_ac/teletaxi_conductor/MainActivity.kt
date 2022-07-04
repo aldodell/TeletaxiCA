@@ -12,9 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.google.firebase.messaging.FirebaseMessaging
-import com.psiqueylogos_ac.teletaxi_lib.DataBox
-import com.psiqueylogos_ac.teletaxi_lib.Order
-
+import com.psiqueylogos_ac.teletaxi_lib.DataMappeable
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 
 
@@ -84,9 +82,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var o = Order()
-        var db = DataBox(o)
-        val m = db.map
+        /*
+        data class Example(var name: String, var age: Int, var parent: Example? = null)
+
+        val ex = Example("a", 22, Example("b", 5, Example("c", 8)))
+        val ex2 = Example("", 0)
+        val j = DataBox(ex).json
+        DataBox(ex2).json = j
+
+         */
+
+        class class1 : DataMappeable {
+            var a = 1
+            var b = "2"
+        }
+
+        val c1 = class1()
 
 
         //Init firebase
