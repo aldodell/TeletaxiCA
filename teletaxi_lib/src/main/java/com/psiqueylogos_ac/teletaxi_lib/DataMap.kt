@@ -1,5 +1,6 @@
 package com.psiqueylogos_ac.teletaxi_lib
 
+import org.json.JSONObject
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
@@ -28,18 +29,41 @@ interface DataMap {
             value.keys.forEach { key ->
                 this::class.declaredMemberProperties.find { it.name == key }?.let { prop ->
                     if (!prop.hasAnnotation<Excluding>()) {
-                        val prop0 = prop as KMutableProperty1<DataMap, Any>
-                        if (prop0.returnType.isSubtypeOf(DataMap::class.createType())) {
-                            val obj = prop0.get(this) as DataMap
-                            obj.map = value[prop0.name] as MutableMap<String, Any>
-                            prop0.set(this, obj)
-                        } else {
-                            prop0.set(this, value[prop0.name]!!)
+                        if (prop is KMutableProperty1) {
+                            val prop0 = prop as KMutableProperty1<DataMap, Any>
+                            if (prop0.returnType.isSubtypeOf(DataMap::class.createType())) {
+                                val obj = prop0.get(this) as DataMap
+                                obj.map = value[prop0.name] as MutableMap<String, Any>
+                                prop0.set(this, obj)
+                            } else {
+                                prop0.set(this, value[prop0.name]!!)
+                            }
                         }
                     }
-
                 }
 
+            }
+        }
+
+    var json: JSONObject
+        get() = JSONObject(this.map as Map<*, *>?)
+        set(value) {
+            value.keys().forEach { key ->
+                this::class.declaredMemberProperties.find { it.name == key }?.let { prop ->
+                    if (!prop.hasAnnotation<Excluding>()) {
+                        if (prop is KMutableProperty1) {
+                            val prop0 = prop as KMutableProperty1<DataMap, Any>
+                            if (prop0.returnType.isSubtypeOf(DataMap::class.createType())) {
+                                val obj = prop0.get(this) as DataMap
+                                obj.map = value[prop0.name] as MutableMap<String, Any>
+                                prop0.set(this, obj)
+                            } else {
+                                prop0.set(this, value[prop0.name]!!)
+                            }
+                        }
+
+                    }
+                }
             }
         }
 

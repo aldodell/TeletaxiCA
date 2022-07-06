@@ -81,27 +81,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        class Car : DataMap {
-            public var model = "fiat"
-            public var color = "gris"
-        }
-
-        class Person : DataMap {
-            public var name = "Aldo"
-            public var car = Car()
-        }
-
-        var aldo = Person()
-        var aldito = Person()
-
-        aldo.car.model = "fiesta"
-        aldo.car.color = "verde"
-
-        aldito.map = aldo.map
-
-
-
-
             //Init firebase
         Firebase.initialize(this)
 

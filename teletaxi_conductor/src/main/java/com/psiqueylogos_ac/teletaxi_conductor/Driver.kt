@@ -1,12 +1,12 @@
 package com.psiqueylogos_ac.teletaxi_conductor
 
-import org.json.JSONObject
+import com.psiqueylogos_ac.teletaxi_lib.DataMap
 
-class Driver {
+class Driver : DataMap {
 
     var userId = ""
     var messageToken = ""
-
+/*
     var map: MutableMap<String, Any>
         get() {
             val r = mutableMapOf<String, Any>()
@@ -28,5 +28,7 @@ class Driver {
             userId = value["userId"] as String
             messageToken = value["messageToken"] as String
         }
+        */
+
 
 }

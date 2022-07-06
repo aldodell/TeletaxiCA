@@ -24,7 +24,6 @@ class StatusServiceActivity : AppCompatActivity() {
     //Get Firestore reference
     private val db = Firebase.firestore
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_status_service)
@@ -37,9 +36,8 @@ class StatusServiceActivity : AppCompatActivity() {
         //get settings
         settings = Settings(this)
 
-
         //Check if id is not empty
-        if (!order.id.isEmpty()) {
+        if (order.id.isNotEmpty()) {
             //Check if this order exits on database
             db.collection("orders")
                 .document(order.id)

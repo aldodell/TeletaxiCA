@@ -3,7 +3,6 @@ package com.psiqueylogos_ac.teletaxi_lib
 import android.location.Geocoder
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
-import org.json.JSONObject
 import kotlin.math.ceil
 import kotlin.math.round
 
@@ -78,8 +77,9 @@ enum class StatusOrder(status: Int) {
 }
 
 
-class Order()  {
+class Order : DataMap {
 
+    /*
     var map: MutableMap<String, Any>
         get() {
             val r = mutableMapOf<String, Any>()
@@ -136,6 +136,7 @@ class Order()  {
             customer = customer0
         }
 
+*/
 
     //@Mappeable
 //  @DataBox.DataBoxable
@@ -150,17 +151,17 @@ class Order()  {
     var destinationLon = 0.0
     var status: String = StatusOrder.pending.name
 
-    //@DataBox.Excluding
+    @DataMap.Excluding
     var id = ""
 
-    //  @DataBox.Excluding
+    @DataMap.Excluding
     var originLatLng: LatLng
         get() = LatLng(originLat, originLon)
         set(value) {
             originLat = value.latitude; originLon = value.longitude
         }
 
-    //  @DataBox.Excluding
+    @DataMap.Excluding
     var destinationLatLng: LatLng
         get() = LatLng(destinationLat, destinationLon)
         set(value) {
