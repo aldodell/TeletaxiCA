@@ -1,12 +1,14 @@
 package com.psiqueylogos_ac.teletaxi_lib
 
+import org.json.JSONObject
+
 class Customer() /*: MappeableData()*/ {
-//dataSource: MutableMap<String, Any>? = null
-   // dataSource
+    //dataSource: MutableMap<String, Any>? = null
+    // dataSource
     var phone: String = ""
     var email: String = ""
-/*
-    override var map: MutableMap<String, Any>
+
+    var map: MutableMap<String, Any>
         get() {
             val r = mutableMapOf<String, Any>()
             r["phone"] = phone
@@ -18,7 +20,7 @@ class Customer() /*: MappeableData()*/ {
             email = value["email"] as String
         }
 
-    override var json: JSONObject
+    var json: JSONObject
         get() {
             val j = JSONObject(this.map as Map<*, *>?)
             return j
@@ -27,7 +29,6 @@ class Customer() /*: MappeableData()*/ {
             phone = value["phone"] as String
             email = value["email"] as String
         }
-        */
 
 
 }

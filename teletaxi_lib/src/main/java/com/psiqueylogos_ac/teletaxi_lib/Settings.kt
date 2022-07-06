@@ -13,7 +13,6 @@ class Settings(var context: Context) {
         get() = sharedPreferences.getString("email", "")!!
         set(value) = sharedPreferences.edit().putString("email", value).apply()
 
-
     var phone: String
         get() = sharedPreferences.getString("phone", "")!!
         set(value) = sharedPreferences.edit().putString("phone", value).apply()
@@ -32,11 +31,11 @@ class Settings(var context: Context) {
 
     var currentOrder: Order?
         get() {
-            var order = Order()
+            val order = Order()
             val json = sharedPreferences.getString("currentOrder", "")
             return if (!json.isNullOrBlank()) {
-                DataBox(order).json = JSONObject(json)
-                //order.json = JSONObject(json)
+                // DataBox(order).json = JSONObject(json)
+                order.json = JSONObject(json)
                 order
             } else {
                 null
@@ -44,8 +43,8 @@ class Settings(var context: Context) {
         }
         set(value) {
             if (value != null) {
-                //sharedPreferences.edit().putString("currentOrder", DataBox(value).json.toString())
-                sharedPreferences.edit().putString("currentOrder", DataBox(value).json.toString())
+                sharedPreferences.edit().putString("currentOrder", value.json.toString())
+                    //  sharedPreferences.edit().putString("currentOrder", DataBox(value).json.toString())
                     .apply()
             } else sharedPreferences.edit().clear().apply()
         }

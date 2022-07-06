@@ -18,7 +18,6 @@ class CurrentServiceActivity : AppCompatActivity() {
     private lateinit var tvServiceDescription: TextView
     private lateinit var btNotifyArrived: Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_service)

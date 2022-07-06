@@ -1,5 +1,6 @@
 package com.psiqueylogos_ac.teletaxi_conductor
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,9 +16,6 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.psiqueylogos_ac.teletaxi_lib.DataBox
-
-
 import com.psiqueylogos_ac.teletaxi_lib.Order
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 import com.psiqueylogos_ac.teletaxi_lib.StatusOrder
@@ -62,8 +60,8 @@ class PendingServicesAdapter(
 
                     db.collection("orders")
                         .document(order.id)
-                        .update(DataBox(order).map)
-                        // .update(order.map)
+                        // .update(DataBox(order).map)
+                        .update(order.map)
                         .addOnCompleteListener {
                             val mIntent =
                                 Intent(settings.context, CurrentServiceActivity::class.java)
@@ -104,7 +102,7 @@ class PendingServicesActivity : AppCompatActivity() {
                         if (doc.type == DocumentChange.Type.ADDED) {
                             val order = Order()
                             //  order.from(doc.document.data, doc.document.id)
-                            DataBox(order).map = doc.document.data
+                            order.map = doc.document.data
                             // order.map = doc.document.data
                             if (order.status == StatusOrder.pending.name) {
                                 pendingOrders.add(order)
@@ -112,8 +110,8 @@ class PendingServicesActivity : AppCompatActivity() {
                         } else if (doc.type == DocumentChange.Type.MODIFIED) {
                             val order = Order()
                             //order.from(doc.document.data, doc.document.id)
-                            DataBox(order).map = doc.document.data
-                            //order.map = doc.document.data
+                            //  DataBox(order).map = doc.document.data
+                            order.map = doc.document.data
                             if (order.status == StatusOrder.accepted.name) {
                                 pendingOrders.remove(pendingOrders.first { order1 -> order1.id == order.id })
                             }

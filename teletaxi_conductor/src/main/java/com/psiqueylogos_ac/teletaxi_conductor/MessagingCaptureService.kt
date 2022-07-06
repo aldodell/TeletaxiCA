@@ -30,7 +30,6 @@ class MessagingCaptureService : FirebaseMessagingService() {
         createNotification(message)
         super.onMessageReceived(message)
 
-
     }
 
     private fun createNotification(message: RemoteMessage) {

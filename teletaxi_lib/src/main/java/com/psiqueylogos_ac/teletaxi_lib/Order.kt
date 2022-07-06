@@ -3,6 +3,7 @@ package com.psiqueylogos_ac.teletaxi_lib
 import android.location.Geocoder
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
+import org.json.JSONObject
 import kotlin.math.ceil
 import kotlin.math.round
 
@@ -43,10 +44,8 @@ fun easyAddress(place: Place): String {
         }
     }
 
-
     r.removeSuffix(suffix)
     return r.toString()
-
 
 }
 
@@ -54,7 +53,7 @@ fun easyAddress(place: Place): String {
 fun easyAddress(geocoder: Geocoder, latLng: LatLng): String {
     val addrs = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
     val r = StringBuilder()
-    var ad = addrs.first()
+    val ad = addrs.first()
     val suffix = ","
     r.append(ad.featureName)
     r.append(suffix)
@@ -79,11 +78,9 @@ enum class StatusOrder(status: Int) {
 }
 
 
-class Order() /*: MappeableData()*/ {
-    //dataSource: MutableMap<String, Any>? = null
+class Order()  {
 
-    /*
-    override var map: MutableMap<String, Any>
+    var map: MutableMap<String, Any>
         get() {
             val r = mutableMapOf<String, Any>()
             r["driver"] = driver
@@ -107,10 +104,16 @@ class Order() /*: MappeableData()*/ {
             destinationLat = value["destinationLat"] as Double
             destinationLon = value["destinationLon"] as Double
             status = value["status"] as String
-            customer = value["customer"] as Customer
+
+            val c = value["customer"] as HashMap<String, Any>
+            val customer0 = Customer()
+            customer0.email = c["email"] as String
+            customer0.phone = c["phone"] as String
+
+            customer = customer0
         }
 
-    override var json: JSONObject
+    var json: JSONObject
         get() {
             val j = JSONObject(this.map as Map<*, *>?)
             return j
@@ -125,15 +128,17 @@ class Order() /*: MappeableData()*/ {
             destinationLat = value["driver"] as Double
             destinationLon = value["driver"] as Double
             status = value["driver"] as String
-            customer = value["customer"] as Customer
-        }
 
-     */
+            val c = value["customer"] as JSONObject
+            val customer0 = Customer()
+            customer0.email = c["email"] as String
+            customer0.phone = c["phone"] as String
+            customer = customer0
+        }
 
 
     //@Mappeable
-
-    @DataBox.DataBoxable
+//  @DataBox.DataBoxable
     var customer = Customer()
 
     var driver = ""
@@ -145,17 +150,17 @@ class Order() /*: MappeableData()*/ {
     var destinationLon = 0.0
     var status: String = StatusOrder.pending.name
 
-    @DataBox.Excluding
+    //@DataBox.Excluding
     var id = ""
 
-    @DataBox.Excluding
+    //  @DataBox.Excluding
     var originLatLng: LatLng
         get() = LatLng(originLat, originLon)
         set(value) {
             originLat = value.latitude; originLon = value.longitude
         }
 
-    @DataBox.Excluding
+    //  @DataBox.Excluding
     var destinationLatLng: LatLng
         get() = LatLng(destinationLat, destinationLon)
         set(value) {

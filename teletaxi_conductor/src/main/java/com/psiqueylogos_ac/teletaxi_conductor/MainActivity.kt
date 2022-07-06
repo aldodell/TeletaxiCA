@@ -12,7 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.google.firebase.messaging.FirebaseMessaging
-import com.psiqueylogos_ac.teletaxi_lib.DataMappeable
+import com.psiqueylogos_ac.teletaxi_lib.DataMap
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 
 
@@ -81,26 +81,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        /*
-        data class Example(var name: String, var age: Int, var parent: Example? = null)
-
-        val ex = Example("a", 22, Example("b", 5, Example("c", 8)))
-        val ex2 = Example("", 0)
-        val j = DataBox(ex).json
-        DataBox(ex2).json = j
-
-         */
-
-        class class1 : DataMappeable {
-            var a = 1
-            var b = "2"
+        class Car : DataMap {
+            public var model = "fiat"
+            public var color = "gris"
         }
 
-        val c1 = class1()
+        class Person : DataMap {
+            public var name = "Aldo"
+            public var car = Car()
+        }
+
+        var aldo = Person()
+        var aldito = Person()
+
+        aldo.car.model = "fiesta"
+        aldo.car.color = "verde"
+
+        aldito.map = aldo.map
 
 
-        //Init firebase
+
+
+            //Init firebase
         Firebase.initialize(this)
 
         //get authorization instance object

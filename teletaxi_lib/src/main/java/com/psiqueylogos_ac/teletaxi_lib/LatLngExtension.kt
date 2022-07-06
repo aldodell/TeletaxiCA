@@ -4,7 +4,6 @@ import com.google.android.gms.maps.model.LatLng
 
 fun LatLng.distanceTo(destination: LatLng): Double {
 
-
     /**
      * Haversine formula. Giving great-circle distances between two points on a sphere from their longitudes and latitudes.
      * It is a special case of a more general formula in spherical trigonometry, the law of haversines, relating the
