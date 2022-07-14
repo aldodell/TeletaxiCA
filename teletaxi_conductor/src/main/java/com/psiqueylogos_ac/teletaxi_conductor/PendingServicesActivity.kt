@@ -47,6 +47,7 @@ class PendingServicesAdapter(
         holder.tvServiceDescription.setText(t)
         holder.btAcceptService.setOnClickListener {
 
+            //If driver accept service changes status on order object
             AlertDialog.Builder(it.context)
                 .setTitle(R.string.service_accept)
                 .setMessage(R.string.service_message_1)
@@ -95,23 +96,28 @@ class PendingServicesActivity : AppCompatActivity() {
         rvPendingServices.adapter = pendingServicesAdapter
         rvPendingServices.layoutManager = LinearLayoutManager(this)
 
+
+        /*
+        Get orders changes and process it in order to update user interface
+
+         */
         db.collection("orders")
             .addSnapshotListener { value, _ ->
                 value?.let {
                     it.documentChanges.forEach { doc ->
                         if (doc.type == DocumentChange.Type.ADDED) {
                             val order = Order()
-                            //  order.from(doc.document.data, doc.document.id)
-                            order.map = doc.document.data
+                            order.from(doc.document.data, doc.document.id)
+                            //order.map = doc.document.data
                             // order.map = doc.document.data
                             if (order.status == StatusOrder.pending.name) {
                                 pendingOrders.add(order)
                             }
                         } else if (doc.type == DocumentChange.Type.MODIFIED) {
                             val order = Order()
-                            //order.from(doc.document.data, doc.document.id)
+                            order.from(doc.document.data, doc.document.id)
                             //  DataBox(order).map = doc.document.data
-                            order.map = doc.document.data
+                            // order.map = doc.document.data
                             if (order.status == StatusOrder.accepted.name) {
                                 pendingOrders.remove(pendingOrders.first { order1 -> order1.id == order.id })
                             }

@@ -11,13 +11,15 @@
     <string name="aproximated_time">Tiempo aproximado</string>
     <string name="arrived">Llegó el vehículo</string>
     <string name="email_reason">
+        <p>
         Para poder acceder a nuestros servicios es necesario proporcionar
         una cuenta de correo electrónico. Por favor ingresa una cuenta de correo válida
         para continuar. Si es la primera vez que accedes a esta aplicación
         se guardará tu dirección en nuestra base de datos. Proporciona una contaseña
         que te permita acceder luego a la aplicación.
-        Si olvidas la contraseña haz click en "RECUPERAR CONTRASEÑA" y se te enviará
+        Si olvidas la contraseña haz click en <b>RECUPERAR CONTRASEÑA</b> y se te enviará
         un correo electrónico a la dirección que proporcionaste para regenerar la contraseña.
+        </p>
     </string>
     <string name="exit">Salir</string>
     <string name="send">Enviar</string>

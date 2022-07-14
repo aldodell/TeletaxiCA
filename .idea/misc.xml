@@ -28,6 +28,7 @@
         <entry key="teletaxi_cliente/src/main/res/layout/fragment_map_costumer.xml" value="0.17777777777777778" />
         <entry key="teletaxi_conductor/src/main/res/layout/activity_current_service.xml" value="0.29791666666666666" />
         <entry key="teletaxi_conductor/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="teletaxi_conductor/src/main/res/layout/activity_pending_services.xml" value="0.2703125" />
         <entry key="teletaxi_conductor/src/main/res/layout/service_row.xml" value="0.1203125" />
         <entry key="teletaxiconductor/src/main/res/layout/activity_main.xml" value="0.22777777777777777" />
       </map>

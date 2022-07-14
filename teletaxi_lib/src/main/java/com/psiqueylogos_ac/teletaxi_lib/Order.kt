@@ -3,6 +3,7 @@ package com.psiqueylogos_ac.teletaxi_lib
 import android.location.Geocoder
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
+import com.psiqueylogos_ac.datamap.DataMap
 import kotlin.math.ceil
 import kotlin.math.round
 
@@ -77,6 +78,8 @@ enum class StatusOrder(status: Int) {
 }
 
 
+
+
 class Order : DataMap {
 
     /*
@@ -142,6 +145,8 @@ class Order : DataMap {
 //  @DataBox.DataBoxable
     var customer = Customer()
 
+    var position = MyLatLng(0.0,0.0)
+
     var driver = ""
     var origin = ""
     var destination = ""
@@ -202,11 +207,11 @@ class Order : DataMap {
             return round(t)
         }
 
-/*
+
     fun from(themap: Map<String, Any>, id: String) {
         this.map = themap as MutableMap<String, Any>
         this.id = id
     }
-*/
+
 
 }

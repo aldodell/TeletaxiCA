@@ -1,6 +1,6 @@
 package com.psiqueylogos_ac.teletaxi_conductor
 
-import com.psiqueylogos_ac.teletaxi_lib.DataMap
+import com.psiqueylogos_ac.datamap.DataMap
 
 class Driver : DataMap {
 

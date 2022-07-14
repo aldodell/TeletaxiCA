@@ -2,13 +2,13 @@ package com.psiqueylogos_ac.teletaxi_cliente
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.psiqueylogos_ac.teletaxi_lib.Order
-
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 import com.psiqueylogos_ac.teletaxi_lib.StatusOrder
 
@@ -95,6 +95,9 @@ class StatusServiceActivity : AppCompatActivity() {
                             }
                         }
                 }
+            }
+            .addOnFailureListener {
+                Log.wtf("StatusServiceActivity", "addOrder: " + it.message)
             }
     }
 }

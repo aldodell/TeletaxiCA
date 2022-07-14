@@ -21,7 +21,7 @@ import com.psiqueylogos_ac.teletaxi_lib.easyAddress
 class RequestServiceActivity : AppCompatActivity() {
     val tag = "TLTC"
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var currentLatLng: LatLng = LatLng(10.9, -66.0)
+    private var currentLatLng: LatLng? = LatLng(10.9, -66.0)
     private lateinit var btOrder: Button
 
     private var placeFields = listOf(
@@ -119,27 +119,45 @@ class RequestServiceActivity : AppCompatActivity() {
         //get last position
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation.addOnSuccessListener {
-            currentLatLng = LatLng(it.latitude, it.longitude)
-            mapViewModel.position.value = currentLatLng
+            if (it != null) {
 
-            val request =
-                FindCurrentPlaceRequest
-                    .newInstance(placeFields.minusElement(Place.Field.ADDRESS_COMPONENTS))
+                /*
+                AlertDialog.Builder(this).setTitle("Error")
+                    .setMessage("Debe activar los servicios de localización(GPS) para usar esta aplicación")
+                    .setPositiveButton("Ok", object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            finish()
+                        }
+                    })
+                    .create()
+                    .show()
 
-            clientPlaces.findCurrentPlace(request)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        it.result.placeLikelihoods.firstOrNull()?.let { p ->
-                            autocompleteFragmentOrigin.setText(p.place.name)
-                            order.origin = easyAddress(p.place)
-                            order.originLatLng = currentLatLng
-                            mapViewModel.originSelected.value = currentLatLng
+                 */
+
+
+
+                currentLatLng = LatLng(it.latitude, it.longitude)
+                mapViewModel.position.value = currentLatLng
+
+                val request =
+                    FindCurrentPlaceRequest
+                        .newInstance(placeFields.minusElement(Place.Field.ADDRESS_COMPONENTS))
+
+                clientPlaces.findCurrentPlace(request)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            it.result.placeLikelihoods.firstOrNull()?.let { p ->
+                                autocompleteFragmentOrigin.setText(p.place.name)
+                                order.origin = easyAddress(p.place)
+                                order.originLatLng = currentLatLng!!
+                                mapViewModel.originSelected.value = currentLatLng
+                            }
                         }
                     }
-                }
-                .addOnFailureListener {
-                    Log.wtf("findCurrentPlace", "onCreate: ${it.message}")
-                }
+                    .addOnFailureListener {
+                        Log.wtf("findCurrentPlace", "onCreate: ${it.message}")
+                    }
+            }
         }
     }
 }

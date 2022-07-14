@@ -1,5 +1,7 @@
 package com.psiqueylogos_ac.teletaxi_lib
 
+import com.psiqueylogos_ac.datamap.DataMap
+
 class Customer : DataMap {
     /*: MappeableData()*/
     //dataSource: MutableMap<String, Any>? = null

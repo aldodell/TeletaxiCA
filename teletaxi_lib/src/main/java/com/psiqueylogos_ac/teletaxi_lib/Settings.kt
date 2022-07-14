@@ -43,8 +43,9 @@ class Settings(var context: Context) {
         }
         set(value) {
             if (value != null) {
-                sharedPreferences.edit().putString("currentOrder", value.json.toString())
-                    //  sharedPreferences.edit().putString("currentOrder", DataBox(value).json.toString())
+                val s = value.json.toString()
+                sharedPreferences.edit().putString("currentOrder", s)
+
                     .apply()
             } else sharedPreferences.edit().clear().apply()
         }

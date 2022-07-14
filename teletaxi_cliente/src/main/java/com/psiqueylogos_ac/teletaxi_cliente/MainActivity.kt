@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.messaging.FirebaseMessaging
 import com.psiqueylogos_ac.teletaxi_lib.Order
+
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 import kotlin.reflect.KClass
 
@@ -29,6 +30,10 @@ MAIN -> RequestServiceActivity -> ConfirmServiveActivity -> StatusServiceActivit
 val mapViewModel = MapViewModel()
 const val PERMISSION_ACCESS_COARSE_LOCATION = 1
 const val PERMISSION_ACCESS_FINE_LOCATION = 2
+
+/**
+ * Master instance of actually order object
+ */
 var order = Order()
 
 /**
@@ -67,7 +72,7 @@ fun requestPermission(permission: Int, appCompatActivity: AppCompatActivity) {
 }
 
 /**
- * Use toload RequestServiceActivity
+ * Use to load RequestServiceActivity
  */
 fun requestService(context: Context) {
     requestPermission(PERMISSION_ACCESS_COARSE_LOCATION, context as AppCompatActivity)
@@ -95,7 +100,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvAppVersion: TextView
     private lateinit var btManageAccount: Button
     private lateinit var settings: Settings
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

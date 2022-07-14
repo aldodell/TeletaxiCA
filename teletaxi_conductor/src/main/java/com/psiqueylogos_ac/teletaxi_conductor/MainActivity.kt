@@ -12,7 +12,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.google.firebase.messaging.FirebaseMessaging
-import com.psiqueylogos_ac.teletaxi_lib.DataMap
 import com.psiqueylogos_ac.teletaxi_lib.Settings
 
 
@@ -54,6 +53,8 @@ fun sendToken(context: Context, token: String) {
         driver.messageToken = token
         settings.messageToken = token
 
+        //Saving driver token
+        /*
         db.collection("drivers_device")
             .whereEqualTo("messageToken", token)
             .get()
@@ -65,6 +66,8 @@ fun sendToken(context: Context, token: String) {
                     }
                 }
             }
+
+        */
     }
 
 }
@@ -81,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-            //Init firebase
+        //Init firebase
         Firebase.initialize(this)
 
         //get authorization instance object
