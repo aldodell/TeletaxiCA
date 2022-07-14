@@ -78,8 +78,6 @@ enum class StatusOrder(status: Int) {
 }
 
 
-
-
 class Order : DataMap {
 
     /*
@@ -145,16 +143,18 @@ class Order : DataMap {
 //  @DataBox.DataBoxable
     var customer = Customer()
 
-    var position = MyLatLng(0.0,0.0)
+    var position = MyLatLng(0.0, 0.0)
 
     var driver = ""
-    var origin = ""
-    var destination = ""
+    var originCaption = ""
+    var destinationCaption = ""
     var originLat = 0.0
     var originLon = 0.0
     var destinationLat = 0.0
     var destinationLon = 0.0
     var status: String = StatusOrder.pending.name
+    var origin = MyLatLng(0.0, 0.0)
+    var destination = MyLatLng(0.0, 0.0)
 
     @DataMap.Excluding
     var id = ""

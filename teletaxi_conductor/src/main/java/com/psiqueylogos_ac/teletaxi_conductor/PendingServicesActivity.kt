@@ -43,7 +43,7 @@ class PendingServicesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val order = orders[position]
-        val t = "Desde: ${order.origin} hasta: ${order.destination} costo: ${order.cost}"
+        val t = "Desde: ${order.originCaption} hasta: ${order.destinationCaption} costo: ${order.cost}"
         holder.tvServiceDescription.setText(t)
         holder.btAcceptService.setOnClickListener {
 

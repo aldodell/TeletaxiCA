@@ -30,8 +30,8 @@ class ConfirmServiceActivity : AppCompatActivity() {
 
         //Set up order text
         val orderText =
-            "Servicio <b>desde:</b> ${order.origin}" +
-                    "<br/><b>hasta:</b>${order.destination}<br/>" +
+            "Servicio <b>desde:</b> ${order.originCaption}" +
+                    "<br/><b>hasta:</b>${order.destinationCaption}<br/>" +
                     "<b>Distancia en km: <b/>${order.distance}<br/>" +
                     "<b>Costo referencial en $:</b> ${order.cost}"
 

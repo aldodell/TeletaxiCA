@@ -81,7 +81,7 @@ class RequestServiceActivity : AppCompatActivity() {
         autocompleteFragmentOrigin.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 mapViewModel.originSelected.value = place.latLng
-                order.origin = easyAddress(place)
+                order.originCaption = easyAddress(place)
             }
 
             override fun onError(status: Status) {
@@ -106,7 +106,7 @@ class RequestServiceActivity : AppCompatActivity() {
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 mapViewModel.destinationSelected.value = place.latLng
-                order.destination = easyAddress(place)
+                order.destinationCaption = easyAddress(place)
                 Log.i(tag, "Place: ${place.name}, ${place.id}")
             }
 
@@ -148,7 +148,7 @@ class RequestServiceActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             it.result.placeLikelihoods.firstOrNull()?.let { p ->
                                 autocompleteFragmentOrigin.setText(p.place.name)
-                                order.origin = easyAddress(p.place)
+                                order.originCaption = easyAddress(p.place)
                                 order.originLatLng = currentLatLng!!
                                 mapViewModel.originSelected.value = currentLatLng
                             }

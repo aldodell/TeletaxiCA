@@ -106,7 +106,7 @@ class MapCostumerFragment : Fragment() {
                 override fun onMarkerDragEnd(p0: Marker) {
                     when (p0) {
                         originMarker -> {
-                            order.origin = easyAddress(geocoder, originMarker!!.position)
+                            order.originCaption = easyAddress(geocoder, originMarker!!.position)
                             /*
                             order.origin = geocoder
                                 .getFromLocation(
@@ -121,7 +121,7 @@ class MapCostumerFragment : Fragment() {
                         }
 
                         destinationMarker -> {
-                            order.destination = easyAddress(geocoder, destinationMarker!!.position)
+                            order.destinationCaption = easyAddress(geocoder, destinationMarker!!.position)
                             /*
                             order.destination = geocoder
                                 .getFromLocation(
